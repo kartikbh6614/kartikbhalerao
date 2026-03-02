@@ -6,18 +6,19 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ErrorBoundary } from "react-error-boundary";
+import { lazy, Suspense } from "react";
 
-import Index from "./pages/Index";
-import About from "./pages/About";
-import Skills from "./pages/Skills";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import CaseStudies from "./pages/CaseStudies";
-import CaseStudyDetail from "./pages/CaseStudyDetail";
-import Certifications from "./pages/Certifications";
-import AchievementDetail from "./pages/AchievementDetail";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+const Index = lazy(() => import("./pages/Index"));
+const About = lazy(() => import("./pages/About"));
+const Skills = lazy(() => import("./pages/Skills"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const CaseStudies = lazy(() => import("./pages/CaseStudies"));
+const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail"));
+const Certifications = lazy(() => import("./pages/Certifications"));
+const AchievementDetail = lazy(() => import("./pages/AchievementDetail"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Create a single instance of QueryClient with proper configuration
 const queryClient = new QueryClient({
@@ -60,19 +61,21 @@ const App = () => {
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/skills" element={<Skills />} />
-                <Route path="/case-studies" element={<CaseStudies />} />
-                <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
-                <Route path="/certifications" element={<Certifications />} />
-                <Route path="/achievements/:id" element={<AchievementDetail />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:id" element={<BlogPost />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <Suspense fallback={null}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/skills" element={<Skills />} />
+                  <Route path="/case-studies" element={<CaseStudies />} />
+                  <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
+                  <Route path="/certifications" element={<Certifications />} />
+                  <Route path="/achievements/:id" element={<AchievementDetail />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:id" element={<BlogPost />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
             </BrowserRouter>
           </TooltipProvider>
         </ThemeProvider>
