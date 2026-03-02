@@ -3,10 +3,22 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { blogPosts } from '@/data/blogPosts';
+
+const skillCategories = [
+  { title: "Product Strategy",      description: "Discovery, roadmaps, go-to-market"   },
+  { title: "Data & Analytics",      description: "Metrics, A/B testing, KPI tracking"  },
+  { title: "User Experience",       description: "Research, wireframing, usability"     },
+  { title: "Technical Leadership",  description: "Agile, API design, system architecture"},
+  { title: "AI Tools",              description: "OpenAI, Anthropic, Zapier, n8n"       },
+  { title: "Design & Wireframing",  description: "Figma, Canva, Sketch, Miro"           },
+];
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [blogDropdownOpen, setBlogDropdownOpen] = useState(false);
+  const [skillsDropdownOpen, setSkillsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +60,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-[#f8f9fc] dark:bg-gray-950 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white dark:bg-zinc-900 ${
         isScrolled
           ? 'border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-gray-900'
           : 'border-transparent'
@@ -83,42 +95,107 @@ export const Header = () => {
           {/* Enhanced Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
             {/* Enhanced Skills Button */}
-            <button
-              onClick={() => scrollToSection('skills')}
-              className="group relative px-8 py-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+            {/* Skills Button with dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setSkillsDropdownOpen(true)}
+              onMouseLeave={() => setSkillsDropdownOpen(false)}
             >
-              {/* Multi-layer glass background */}
-              <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              
-              {/* Enhanced gradient layers */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent dark:from-white/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              
-              {/* Enhanced glow effects */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/25 to-purple-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-all duration-700"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-1000"></div>
-              
-              <span className="relative z-10 tracking-wide">Skills</span>
-            </button>
+              <button
+                onClick={() => scrollToSection('skills')}
+                className="group relative px-8 py-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/25 to-purple-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-all duration-700"></div>
+                <span className="relative z-10 tracking-wide">Skills</span>
+              </button>
+
+              {/* Dropdown */}
+              {skillsDropdownOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 rounded-2xl border border-border/50 bg-white dark:bg-zinc-900 shadow-2xl shadow-black/10 dark:shadow-black/30 overflow-hidden z-50">
+                  {/* Header */}
+                  <div className="px-4 py-3 border-b border-border/40">
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Skill Areas</p>
+                  </div>
+                  {/* Categories */}
+                  <div className="py-1.5">
+                    {skillCategories.map((cat, i) => (
+                      <button
+                        key={i}
+                        onClick={() => scrollToSection('skills')}
+                        className="w-full flex flex-col px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors duration-150 text-left group/item"
+                      >
+                        <span className="text-[13px] font-medium text-foreground group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 leading-snug transition-colors">
+                          {cat.title}
+                        </span>
+                        <span className="text-[11px] text-muted-foreground mt-0.5">{cat.description}</span>
+                      </button>
+                    ))}
+                  </div>
+                  {/* Footer */}
+                  <div className="px-4 py-2.5 border-t border-border/40">
+                    <button
+                      onClick={() => scrollToSection('skills')}
+                      className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      View all skills →
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             
-            {/* Enhanced Blog Button */}
-            <button
-              onClick={() => scrollToSection('blog')}
-              className="group relative px-8 py-3 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+            {/* Blog Button with dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setBlogDropdownOpen(true)}
+              onMouseLeave={() => setBlogDropdownOpen(false)}
             >
-              {/* Multi-layer glass background */}
-              <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              
-              {/* Enhanced gradient layers */}
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent dark:from-white/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              
-              {/* Enhanced glow effects */}
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/25 to-teal-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-all duration-700"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-1000"></div>
-              
-              <span className="relative z-10 tracking-wide">Blog</span>
-            </button>
+              <button
+                onClick={() => scrollToSection('blog')}
+                className="group relative px-8 py-3 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/25 to-teal-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-all duration-700"></div>
+                <span className="relative z-10 tracking-wide">Blog</span>
+              </button>
+
+              {/* Dropdown */}
+              {blogDropdownOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 rounded-2xl border border-border/50 bg-white dark:bg-zinc-900 shadow-2xl shadow-black/10 dark:shadow-black/30 overflow-hidden z-50">
+                  {/* Header */}
+                  <div className="px-4 py-3 border-b border-border/40">
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Articles</p>
+                  </div>
+                  {/* Posts */}
+                  <div className="py-1.5">
+                    {blogPosts.map(post => (
+                      <button
+                        key={post.id}
+                        onClick={() => navigate(`/blog?id=${post.id}`)}
+                        className="w-full flex flex-col px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors duration-150 text-left group/item"
+                      >
+                        <span className="text-[13px] font-medium text-foreground group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 leading-snug line-clamp-1 transition-colors">
+                          {post.title}
+                        </span>
+                        <span className="text-[11px] text-muted-foreground mt-0.5 capitalize">{post.category}</span>
+                      </button>
+                    ))}
+                  </div>
+                  {/* Footer */}
+                  <div className="px-4 py-2.5 border-t border-border/40">
+                    <button
+                      onClick={() => navigate('/blog')}
+                      className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      View all articles →
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Enhanced Contact Button */}
             <button
@@ -163,7 +240,7 @@ export const Header = () => {
 
         {/* Enhanced Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-1 pb-4 border-t border-gray-200 dark:border-gray-800 bg-[#f8f9fc] dark:bg-gray-950">
+          <div className="md:hidden mt-1 pb-4 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900">
             <div className="py-4 px-2">
               <nav className="flex flex-col space-y-3">
                 {/* Enhanced Mobile Skills Button */}

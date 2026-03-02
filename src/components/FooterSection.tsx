@@ -1,6 +1,6 @@
 import { Heart, Coffee } from "lucide-react";
 export const FooterSection = () => {
-  return <footer className="relative bg-slate-950 text-white overflow-hidden">
+  return <footer className="relative bg-zinc-900 text-white overflow-hidden">
       {/* Animated mesh gradient background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-600/20 rounded-full blur-[100px] animate-pulse" />

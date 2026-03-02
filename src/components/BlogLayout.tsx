@@ -158,14 +158,6 @@ export const BlogLayout = ({
           ) : (
             <div className="flex flex-col items-center justify-center min-h-screen relative overflow-hidden">
               <style>{`
-@keyframes sparkle-pop {
-                  0%,100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
-                  50%     { opacity: 1; transform: scale(1) rotate(20deg); }
-                }
-                @keyframes marquee-scroll {
-                  from { transform: translateX(0); }
-                  to   { transform: translateX(-50%); }
-                }
                 @keyframes glow-pulse {
                   0%,100% { opacity: 0.5; transform: scale(1); }
                   50%     { opacity: 0.9; transform: scale(1.08); }
@@ -203,19 +195,6 @@ export const BlogLayout = ({
                 />
               </div>
 
-              {/* ── Sparkle particles ── */}
-              {([
-                { top: '14%', left: '18%',  delay: '0s',    dur: '3s',   size: 10 },
-                { top: '22%', left: '78%',  delay: '1s',    dur: '2.6s', size: 8  },
-                { top: '62%', left: '8%',   delay: '1.8s',  dur: '3.4s', size: 10 },
-                { top: '72%', left: '88%',  delay: '0.5s',  dur: '2.8s', size: 7  },
-                { top: '38%', left: '88%',  delay: '2.2s',  dur: '3.2s', size: 9  },
-                { top: '55%', left: '15%',  delay: '0.9s',  dur: '2.5s', size: 7  },
-              ] as Array<{top:string;left:string;delay:string;dur:string;size:number}>).map((s, i) => (
-                <div key={i} className="absolute pointer-events-none text-violet-400/60"
-                  style={{ top: s.top, left: s.left, animation: `sparkle-pop ${s.dur} ease-in-out infinite`, animationDelay: s.delay, fontSize: s.size }}
-                >✦</div>
-              ))}
 
 
               {/* ── Central glass card ── */}
@@ -282,17 +261,6 @@ export const BlogLayout = ({
                 </div>
               </div>
 
-              {/* ── Scrolling marquee ── */}
-              <div className="absolute bottom-0 left-0 right-0 border-t border-border/25 bg-background/50 backdrop-blur-sm py-2.5 overflow-hidden">
-                <div style={{ animation: 'marquee-scroll 25s linear infinite' }} className="flex gap-10 whitespace-nowrap w-max">
-                  {[...allPosts, ...allPosts].map((post, i) => (
-                    <span key={i} className="text-[10px] text-muted-foreground/45 font-medium flex items-center gap-2.5">
-                      <span className="w-1 h-1 rounded-full bg-violet-400/50 flex-shrink-0 inline-block" />
-                      {post.title}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
           )}
         </div>
