@@ -8,7 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "close-servers": "bash scripts/close-localhost-servers.sh"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
