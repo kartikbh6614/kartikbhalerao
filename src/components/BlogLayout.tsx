@@ -156,15 +156,142 @@ export const BlogLayout = ({
               onBack={onBackToList}
             />
           ) : (
-            <div className="flex items-center justify-center min-h-screen px-8">
-              <div className="text-center max-w-md">
-                <div className="w-16 h-16 mx-auto mb-6 bg-card border border-border rounded-2xl flex items-center justify-center shadow-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                  </svg>
+            <div className="flex flex-col items-center justify-center min-h-screen relative overflow-hidden">
+              <style>{`
+@keyframes sparkle-pop {
+                  0%,100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+                  50%     { opacity: 1; transform: scale(1) rotate(20deg); }
+                }
+                @keyframes marquee-scroll {
+                  from { transform: translateX(0); }
+                  to   { transform: translateX(-50%); }
+                }
+                @keyframes glow-pulse {
+                  0%,100% { opacity: 0.5; transform: scale(1); }
+                  50%     { opacity: 0.9; transform: scale(1.08); }
+                }
+                @keyframes arrow-left-bounce {
+                  0%,100% { transform: translateX(0); opacity: 0.5; }
+                  50%     { transform: translateX(-7px); opacity: 1; }
+                }
+                @keyframes chip-rise {
+                  from { opacity: 0; transform: translateY(12px); }
+                  to   { opacity: 1; transform: translateY(0); }
+                }
+              `}</style>
+
+              {/* ── Background gradient mesh ── */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0"
+                  style={{
+                    background: `
+                      radial-gradient(ellipse 55% 55% at 15% 25%, rgba(139,92,246,0.13) 0%, transparent 65%),
+                      radial-gradient(ellipse 50% 55% at 85% 75%, rgba(59,130,246,0.13) 0%, transparent 65%),
+                      radial-gradient(ellipse 40% 35% at 50% 50%, rgba(16,185,129,0.07) 0%, transparent 60%)
+                    `,
+                  }}
+                />
+                {/* fine grid */}
+                <div className="absolute inset-0"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(to right, rgb(148 163 184 / 0.07) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgb(148 163 184 / 0.07) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '44px 44px',
+                  }}
+                />
+              </div>
+
+              {/* ── Sparkle particles ── */}
+              {([
+                { top: '14%', left: '18%',  delay: '0s',    dur: '3s',   size: 10 },
+                { top: '22%', left: '78%',  delay: '1s',    dur: '2.6s', size: 8  },
+                { top: '62%', left: '8%',   delay: '1.8s',  dur: '3.4s', size: 10 },
+                { top: '72%', left: '88%',  delay: '0.5s',  dur: '2.8s', size: 7  },
+                { top: '38%', left: '88%',  delay: '2.2s',  dur: '3.2s', size: 9  },
+                { top: '55%', left: '15%',  delay: '0.9s',  dur: '2.5s', size: 7  },
+              ] as Array<{top:string;left:string;delay:string;dur:string;size:number}>).map((s, i) => (
+                <div key={i} className="absolute pointer-events-none text-violet-400/60"
+                  style={{ top: s.top, left: s.left, animation: `sparkle-pop ${s.dur} ease-in-out infinite`, animationDelay: s.delay, fontSize: s.size }}
+                >✦</div>
+              ))}
+
+
+              {/* ── Central glass card ── */}
+              <div className="relative z-10 mx-6">
+                {/* Glow behind card */}
+                <div
+                  className="absolute inset-0 rounded-3xl pointer-events-none"
+                  style={{ animation: 'glow-pulse 4s ease-in-out infinite', background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(139,92,246,0.18) 0%, transparent 70%)' }}
+                />
+
+                <div className="relative rounded-3xl border border-violet-200/40 dark:border-violet-700/25 bg-background/70 backdrop-blur-2xl shadow-2xl shadow-violet-500/10 px-10 py-10 max-w-md w-full text-center overflow-hidden">
+                  {/* subtle inner gradient overlay */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-violet-500/5 via-transparent to-blue-500/5 pointer-events-none" />
+
+                  {/* Icon */}
+                  <div className="relative w-fit mx-auto mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-br from-violet-500 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl shadow-violet-500/35 ring-4 ring-violet-400/20">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                      </svg>
+                    </div>
+                    {/* live dot */}
+                    <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                      <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-background" />
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-[1.6rem] font-bold bg-gradient-to-r from-violet-600 via-purple-500 to-blue-600 bg-clip-text text-transparent mb-2 leading-tight">
+                    Pick an article
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-7 leading-relaxed">
+                    {allPosts.length} articles on product strategy, leadership &amp; building great products.
+                  </p>
+
+                  {/* Quick-pick chips */}
+                  <div className="flex flex-wrap gap-2 justify-center mb-7">
+                    {allPosts.slice(0, 4).map((post, i) => {
+                      const short = post.title.split(':')[0].trim();
+                      return (
+                        <button
+                          key={post.id}
+                          onClick={() => onPostClick(post)}
+                          className="px-3 py-1.5 rounded-full bg-muted/70 hover:bg-violet-100 dark:hover:bg-violet-900/40 border border-border/60 hover:border-violet-300 dark:hover:border-violet-600 text-[11px] font-medium text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 transition-all duration-200 backdrop-blur-sm hover:shadow-sm hover:-translate-y-px active:translate-y-0"
+                          style={{ animation: `chip-rise 0.4s ease-out both`, animationDelay: `${i * 0.07}s` }}
+                        >
+                          {short.length > 30 ? short.slice(0, 30) + '…' : short}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Arrow hint */}
+                  <div className="flex items-center justify-center gap-1.5 text-muted-foreground/50">
+                    <svg
+                      style={{ animation: 'arrow-left-bounce 1.8s ease-in-out infinite' }}
+                      xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span className="text-[11px] tracking-wide">Browse all articles in the sidebar</span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Pick an article</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Select a post from the sidebar to start reading.</p>
+              </div>
+
+              {/* ── Scrolling marquee ── */}
+              <div className="absolute bottom-0 left-0 right-0 border-t border-border/25 bg-background/50 backdrop-blur-sm py-2.5 overflow-hidden">
+                <div style={{ animation: 'marquee-scroll 25s linear infinite' }} className="flex gap-10 whitespace-nowrap w-max">
+                  {[...allPosts, ...allPosts].map((post, i) => (
+                    <span key={i} className="text-[10px] text-muted-foreground/45 font-medium flex items-center gap-2.5">
+                      <span className="w-1 h-1 rounded-full bg-violet-400/50 flex-shrink-0 inline-block" />
+                      {post.title}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           )}

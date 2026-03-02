@@ -336,15 +336,6 @@ const PostCard = ({
             </span>
           )}
           {post.featured && <Star className="w-2.5 h-2.5 text-amber-400 fill-current" />}
-          <span className={cn(
-            "ml-auto flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-md",
-            isSelected
-              ? "bg-violet-100 dark:bg-violet-800/40 text-violet-600 dark:text-violet-300"
-              : "bg-muted text-muted-foreground"
-          )}>
-            <Clock className="w-2.5 h-2.5" />
-            {post.readTime.replace(" read", "")}
-          </span>
         </div>
       </div>
     </div>
