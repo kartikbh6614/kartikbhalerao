@@ -8,34 +8,9 @@ export default function Contact() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+      <div className="min-h-screen w-full text-foreground relative bg-white dark:bg-zinc-900">
 
-        {/* Dotted background — same as home */}
-        <div
-          className="fixed inset-0 pointer-events-none z-0"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgb(100 116 139 / 0.2) 1.5px, transparent 1.5px)',
-            backgroundSize: '22px 22px',
-          }}
-        />
-
-        {/* Glowing orbs */}
-        <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-          <div
-            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-            style={{ background: "radial-gradient(circle, #22c55e 0%, transparent 70%)" }}
-          />
-          <div
-            className="absolute top-1/3 -right-40 w-[450px] h-[450px] rounded-full opacity-15 blur-3xl"
-            style={{ background: "radial-gradient(circle, #3b82f6 0%, transparent 70%)" }}
-          />
-          <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full opacity-10 blur-3xl"
-            style={{ background: "radial-gradient(circle, #8b5cf6 0%, transparent 70%)" }}
-          />
-        </div>
-
-        <section className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
 
           {/* Heading — centered */}
           <div className="mb-12 text-center">

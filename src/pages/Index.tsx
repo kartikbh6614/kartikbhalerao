@@ -5,7 +5,7 @@ import { WelcomeToast } from "@/components/WelcomeToast";
 
 const Index = () => {
   return (
-    <div className="min-h-screen w-full text-foreground relative bg-slate-50 dark:bg-zinc-950">
+    <div className="min-h-screen w-full text-foreground relative bg-white dark:bg-zinc-900">
 
 
       <div className="relative z-10">

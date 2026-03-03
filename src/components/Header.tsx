@@ -60,7 +60,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white dark:bg-zinc-900 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-slate-50 dark:bg-zinc-950 ${
         isScrolled
           ? 'border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-gray-900'
           : 'border-transparent'
@@ -92,10 +92,10 @@ export const Header = () => {
             </span>
           </button>
 
-          {/* Enhanced Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
-            {/* Enhanced Skills Button */}
-            {/* Skills Button with dropdown */}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
+
+            {/* Skills */}
             <div
               className="relative"
               onMouseEnter={() => setSkillsDropdownOpen(true)}
@@ -103,38 +103,36 @@ export const Header = () => {
             >
               <button
                 onClick={() => scrollToSection('skills')}
-                className="group relative px-8 py-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+                className="group relative px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 rounded-lg transition-colors duration-150 hover:text-blue-600 dark:hover:text-blue-400"
               >
-                <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/25 to-purple-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-all duration-700"></div>
-                <span className="relative z-10 tracking-wide">Skills</span>
+                {/* Pill background */}
+                <span className="absolute inset-0 rounded-lg bg-blue-50 dark:bg-blue-500/10 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150" />
+                {/* Underline */}
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-full bg-blue-500 group-hover:w-3/5 transition-all duration-200" />
+                <span className="relative">Skills</span>
               </button>
 
               {/* Dropdown */}
               {skillsDropdownOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 rounded-2xl border border-border/50 bg-white dark:bg-zinc-900 shadow-2xl shadow-black/10 dark:shadow-black/30 overflow-hidden z-50">
-                  {/* Header */}
-                  <div className="px-4 py-3 border-b border-border/40">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Skill Areas</p>
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-black/10 dark:shadow-black/40 overflow-hidden z-50">
+                  <div className="px-4 py-2.5 border-b border-slate-100 dark:border-zinc-800">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-zinc-500">Skill Areas</p>
                   </div>
-                  {/* Categories */}
-                  <div className="py-1.5">
+                  <div className="py-1">
                     {skillCategories.map((cat, i) => (
                       <button
                         key={i}
                         onClick={() => scrollToSection('skills')}
-                        className="w-full flex flex-col px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors duration-150 text-left group/item"
+                        className="w-full flex flex-col px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-colors duration-100 text-left group/item"
                       >
-                        <span className="text-[13px] font-medium text-foreground group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 leading-snug transition-colors">
+                        <span className="text-[13px] font-medium text-slate-700 dark:text-zinc-200 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
                           {cat.title}
                         </span>
-                        <span className="text-[11px] text-muted-foreground mt-0.5">{cat.description}</span>
+                        <span className="text-[11px] text-slate-400 dark:text-zinc-500 mt-0.5">{cat.description}</span>
                       </button>
                     ))}
                   </div>
-                  {/* Footer */}
-                  <div className="px-4 py-2.5 border-t border-border/40">
+                  <div className="px-4 py-2.5 border-t border-slate-100 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950">
                     <button
                       onClick={() => scrollToSection('skills')}
                       className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
@@ -145,8 +143,8 @@ export const Header = () => {
                 </div>
               )}
             </div>
-            
-            {/* Blog Button with dropdown */}
+
+            {/* Blog */}
             <div
               className="relative"
               onMouseEnter={() => setBlogDropdownOpen(true)}
@@ -154,41 +152,37 @@ export const Header = () => {
             >
               <button
                 onClick={() => scrollToSection('blog')}
-                className="group relative px-8 py-3 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+                className="group relative px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 rounded-lg transition-colors duration-150 hover:text-emerald-600 dark:hover:text-emerald-400"
               >
-                <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/25 to-teal-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-all duration-700"></div>
-                <span className="relative z-10 tracking-wide">Blog</span>
+                <span className="absolute inset-0 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-full bg-emerald-500 group-hover:w-3/5 transition-all duration-200" />
+                <span className="relative">Blog</span>
               </button>
 
               {/* Dropdown */}
               {blogDropdownOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 rounded-2xl border border-border/50 bg-white dark:bg-zinc-900 shadow-2xl shadow-black/10 dark:shadow-black/30 overflow-hidden z-50">
-                  {/* Header */}
-                  <div className="px-4 py-3 border-b border-border/40">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Articles</p>
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-black/10 dark:shadow-black/40 overflow-hidden z-50">
+                  <div className="px-4 py-2.5 border-b border-slate-100 dark:border-zinc-800">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-zinc-500">Articles</p>
                   </div>
-                  {/* Posts */}
-                  <div className="py-1.5">
+                  <div className="py-1">
                     {blogPosts.map(post => (
                       <button
                         key={post.id}
                         onClick={() => navigate(`/blog?id=${post.id}`)}
-                        className="w-full flex flex-col px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors duration-150 text-left group/item"
+                        className="w-full flex flex-col px-4 py-2.5 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-colors duration-100 text-left group/item"
                       >
-                        <span className="text-[13px] font-medium text-foreground group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 leading-snug line-clamp-1 transition-colors">
+                        <span className="text-[13px] font-medium text-slate-700 dark:text-zinc-200 group-hover/item:text-emerald-600 dark:group-hover/item:text-emerald-400 line-clamp-1 transition-colors">
                           {post.title}
                         </span>
-                        <span className="text-[11px] text-muted-foreground mt-0.5 capitalize">{post.category}</span>
+                        <span className="text-[11px] text-slate-400 dark:text-zinc-500 mt-0.5 capitalize">{post.category}</span>
                       </button>
                     ))}
                   </div>
-                  {/* Footer */}
-                  <div className="px-4 py-2.5 border-t border-border/40">
+                  <div className="px-4 py-2.5 border-t border-slate-100 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950">
                     <button
                       onClick={() => navigate('/blog')}
-                      className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                      className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
                     >
                       View all articles →
                     </button>
@@ -197,23 +191,14 @@ export const Header = () => {
               )}
             </div>
 
-            {/* Enhanced Contact Button */}
+            {/* Contact */}
             <button
               onClick={() => scrollToSection('contact')}
-              className="group relative px-8 py-3 text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+              className="group relative px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 rounded-lg transition-colors duration-150 hover:text-orange-600 dark:hover:text-orange-400"
             >
-              {/* Multi-layer glass background */}
-              <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              
-              {/* Enhanced gradient layers */}
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/15 to-pink-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent dark:from-white/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              
-              {/* Enhanced glow effects */}
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/25 to-pink-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-all duration-700"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-1000"></div>
-              
-              <span className="relative z-10 tracking-wide">Contact</span>
+              <span className="absolute inset-0 rounded-lg bg-orange-50 dark:bg-orange-500/10 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150" />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-full bg-orange-500 group-hover:w-3/5 transition-all duration-200" />
+              <span className="relative">Contact</span>
             </button>
 
             {/* Theme Toggle */}
@@ -240,43 +225,31 @@ export const Header = () => {
 
         {/* Enhanced Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-1 pb-4 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-900">
+          <div className="md:hidden mt-1 pb-4 border-t border-gray-200 dark:border-gray-800 bg-slate-50 dark:bg-zinc-950">
             <div className="py-4 px-2">
-              <nav className="flex flex-col space-y-3">
-                {/* Enhanced Mobile Skills Button */}
+              <nav className="flex flex-col gap-1">
                 <button
                   onClick={() => scrollToSection('skills')}
-                  className="group relative px-8 py-4 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+                  className="group relative w-full px-4 py-3 text-sm font-medium text-left text-slate-600 dark:text-slate-300 rounded-lg hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150"
                 >
-                  <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-60 transition-all duration-700"></div>
-                  
-                  <span className="relative z-10 tracking-wide">Skills</span>
-                </button>
-                
-                {/* Enhanced Mobile Blog Button */}
-                <button
-                  onClick={() => scrollToSection('blog')}
-                  className="group relative px-8 py-4 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-60 transition-all duration-700"></div>
-                  
-                  <span className="relative z-10 tracking-wide">Blog</span>
+                  <span className="absolute inset-0 rounded-lg bg-blue-50 dark:bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+                  <span className="relative">Skills</span>
                 </button>
 
-                {/* Enhanced Mobile Contact Button */}
+                <button
+                  onClick={() => scrollToSection('blog')}
+                  className="group relative w-full px-4 py-3 text-sm font-medium text-left text-slate-600 dark:text-slate-300 rounded-lg hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-150"
+                >
+                  <span className="absolute inset-0 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+                  <span className="relative">Blog</span>
+                </button>
+
                 <button
                   onClick={() => scrollToSection('contact')}
-                  className="group relative px-8 py-4 text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 font-medium rounded-2xl transition-all duration-500 overflow-hidden"
+                  className="group relative w-full px-4 py-3 text-sm font-medium text-left text-slate-600 dark:text-slate-300 rounded-lg hover:text-orange-600 dark:hover:text-orange-400 transition-colors duration-150"
                 >
-                  <div className="absolute inset-0 bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500/15 to-pink-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-pink-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-60 transition-all duration-700"></div>
-                  
-                  <span className="relative z-10 tracking-wide">Contact</span>
+                  <span className="absolute inset-0 rounded-lg bg-orange-50 dark:bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+                  <span className="relative">Contact</span>
                 </button>
               </nav>
             </div>
