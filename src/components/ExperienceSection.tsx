@@ -1,44 +1,81 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Lightbulb, Briefcase, GraduationCap, Calendar, MapPin } from "lucide-react";
 
+type SimpleDetail = { title: string; description: string };
+type AspectDetail = { phase: string; icon: string; points: string[] };
+type Experience = {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  highlights: string[];
+  gradient: string;
+  status: string;
+  details?: SimpleDetail[];
+  aspects?: AspectDetail[];
+};
+
 export const ExperienceSection = () => {
   const [expandedJob, setExpandedJob] = useState<number | null>(null);
 
-  const experiences = [
+  const experiences: Experience[] = [
     {
       title: "Product Analyst",
       company: "Decision Machine",
       location: "Pune (full-time)",
       period: "June 2024 - Present",
       highlights: [
-        "🔍 Competitor Analysis",
-        "📊 User Research", 
-        "🏗️ Development of fintech SaaS platform",
-        "🎯 MVP Scoping & Prioritization",
-        "📋 PRD & Documentation Ownership"
+        "🔍 Market & Insights",
+        "🗺️ Roadmap Planning",
+        "🚀 Go-To-Market",
+        "🏗️ Product Definition",
       ],
       gradient: "from-blue-500 to-blue-700",
       status: "Current",
-      details: [
+      aspects: [
         {
-          title: "Competitor Analysis",
-          description: "Conducted deep competitive benchmarking across 12 fintech products, analyzing feature sets, pricing models, and user feedback. Identified whitespace opportunities for underserved Tier-2 users, informing the product's differentiation strategy and go-to-market messaging."
+          phase: "Market & Insights",
+          icon: "🔍",
+          points: [
+            "Benchmarked 12 competing fintech products across features, pricing models, and app-store sentiment to map the competitive landscape.",
+            "Identified a clear whitespace: Tier-2 city users underserved by existing credit-awareness tools, directly shaping the product's differentiation angle.",
+            "Led 20+ user interviews and diary studies to surface real pain points around credit scores, loan eligibility, and savings discipline.",
+            "Synthesized qualitative findings into actionable personas (e.g., 'First-Time Borrower', 'Aspirational Saver') used across design and engineering sprints.",
+            "Tracked macro fintech trends — BNPL adoption, RBI regulatory shifts, UPI credit expansion — to keep product bets aligned with market direction."
+          ]
         },
         {
-          title: "User Research",
-          description: "Led user interviews, surveys, and secondary research to define key personas and jobs-to-be-done. Uncovered pain points in financial literacy and trust, shaping the initial product direction."
+          phase: "Product Definition",
+          icon: "📋",
+          points: [
+            "Authored end-to-end PRDs covering problem context, success metrics, edge cases, and acceptance criteria — keeping engineering and design in sync.",
+            "Broke down epics into user stories with clear JTBD framing, reducing back-and-forth during sprint planning.",
+            "Ran RICE-based prioritization workshops with stakeholders to align on what ships in V1 vs. what gets parked in the backlog.",
+            "Defined the MVP scope around three core flows: credit score explainer, savings nudge engine, and loan eligibility simulator.",
+            "Maintained a living requirements doc in Notion, versioned after every stakeholder review to prevent scope creep."
+          ]
         },
         {
-          title: "Development of fintech SaaS platform",
-          description: "Led end-to-end development of a fntech product aimed at improving credit awareness and savings behavior for early-stage users."
+          phase: "Roadmap",
+          icon: "🗺️",
+          points: [
+            "Built and owned a 6-month rolling roadmap, broken into discovery, build, and validation phases per quarter.",
+            "Delivered V1 in under 8 weeks by sequencing dependencies early and cutting low-impact features after a brutal prioritization round.",
+            "Set up a now / next / later framework to communicate roadmap intent to execs without committing to fixed dates prematurely.",
+            "Introduced fortnightly roadmap reviews to incorporate user feedback, bug severity, and shifting business priorities in near real-time.",
+            "Tracked roadmap health via velocity metrics and flagged blockers to leadership before they became delivery risks."
+          ]
         },
         {
-          title: "MVP Scoping & Prioritization",
-          description: "Defined scope and prioritized MVP features using the RICE framework. Balanced user value with engineering feasibility to deliver V1 in under 8 weeks."
-        },
-        {
-          title: "PRD & Documentation Ownership",
-          description: "Created clear and actionable PRDs, wireframes, and user stories in Notion. Ensured all stakeholders had visibility into roadmap, timelines, and blockers."
+          phase: "Go-To-Market (GTM)",
+          icon: "🚀",
+          points: [
+            "Defined target segments and crafted positioning around trust and simplicity — two attributes competitors consistently failed on in user reviews.",
+            "Co-authored launch messaging with marketing, ensuring product copy reflected real user language gathered during interviews.",
+            "Set up a closed beta with 200+ early users, structured onboarding flows, and tracked activation and D7 retention as leading indicators.",
+            "Built the GTM readiness checklist covering support docs, escalation paths, analytics instrumentation, and rollback criteria.",
+            "Gathered post-launch feedback through in-app surveys and support tickets to feed directly into the V1.1 backlog."
+          ]
         }
       ]
     },
@@ -177,12 +214,29 @@ export const ExperienceSection = () => {
             {/* Detailed Experience */}
             {expandedJob === index && (
               <div className="mt-8 space-y-6 animate-fade-in">
-                {exp.details.map((detail, i) => (
-                  <div key={i} className="bg-white/60 dark:bg-slate-700/40 border border-blue-200/30 dark:border-blue-700/30 rounded-2xl p-6 border-l-4 border-l-blue-500 dark:border-l-blue-400 shadow-sm">
-                    <h5 className="font-semibold text-blue-600 dark:text-blue-400 mb-3 text-lg">{detail.title}</h5>
-                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{detail.description}</p>
-                  </div>
-                ))}
+                {exp.aspects
+                  ? exp.aspects.map((aspect, i) => (
+                      <div key={i} className="bg-white/60 dark:bg-slate-700/40 border border-blue-200/30 dark:border-blue-700/30 rounded-2xl p-6 border-l-4 border-l-blue-500 dark:border-l-blue-400 shadow-sm">
+                        <h5 className="font-semibold text-blue-600 dark:text-blue-400 mb-4 text-lg flex items-center gap-2">
+                          <span>{aspect.icon}</span>
+                          {aspect.phase}
+                        </h5>
+                        <ul className="space-y-2.5">
+                          {aspect.points.map((point, j) => (
+                            <li key={j} className="flex items-start gap-2.5 text-slate-700 dark:text-slate-300 leading-relaxed">
+                              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 dark:bg-blue-500 flex-shrink-0" />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))
+                  : exp.details?.map((detail, i) => (
+                      <div key={i} className="bg-white/60 dark:bg-slate-700/40 border border-blue-200/30 dark:border-blue-700/30 rounded-2xl p-6 border-l-4 border-l-blue-500 dark:border-l-blue-400 shadow-sm">
+                        <h5 className="font-semibold text-blue-600 dark:text-blue-400 mb-3 text-lg">{detail.title}</h5>
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{detail.description}</p>
+                      </div>
+                    ))}
               </div>
             )}
             

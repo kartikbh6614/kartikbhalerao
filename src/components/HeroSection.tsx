@@ -29,9 +29,9 @@ export const HeroSection = () => {
 
         {/* Tagline */}
         <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          <span className="text-gray-800 dark:text-gray-200 font-medium">Building Products That </span>
+          <span className="text-gray-800 dark:text-gray-200 font-medium">Crafting Products That </span>
           <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent font-semibold">
-            Customers Truly Love
+            People Actually Love
           </span>
         </p>
 
